@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 public class FuncionesBDD {
 	
-	
+	// aaaaa
 	// TODO Para modificar un jugador probablemente tengamos que eliminar el seleccionado usando sus datos para eliminarlo y añadir uno nuevo con los datos modificados
 	public static ResultSet conectarConsulta(String consulta1) {
 		
