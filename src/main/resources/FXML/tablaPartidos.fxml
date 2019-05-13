@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="843.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.ContTablaPartidos">
+   <children>
+      <TableView fx:id="tablaPartidos" prefHeight="509.0" prefWidth="843.0">
+        <columns>
+          <TableColumn fx:id="codigoPartido" prefWidth="64.0" text="Cod" />
+          <TableColumn fx:id="equipoLocal" prefWidth="203.0" text="Equipo local" />
+          <TableColumn fx:id="equipoVisitante" prefWidth="227.0" text="Equipo visitante" />
+          <TableColumn fx:id="puntosLocal" prefWidth="116.0" text="Pts local" />
+          <TableColumn fx:id="puntosVisitante" prefWidth="108.0" text="Pts visitante" />
+          <TableColumn fx:id="temporada" prefWidth="124.0" text="Temporada" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

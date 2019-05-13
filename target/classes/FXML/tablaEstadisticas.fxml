@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.ContTablaEstadisticas">
+   <children>
+      <TableView fx:id="tablaEquipos" prefHeight="509.0" prefWidth="880.0">
+         <columns>
+            <TableColumn fx:id="temporada" prefWidth="126.0" text="Temporada" />
+            <TableColumn fx:id="jugadorEstadisticas" prefWidth="348.0" text="Jugador" />
+            <TableColumn fx:id="puntosPartido" prefWidth="215.0" text="Puntos / partido" />
+            <TableColumn fx:id="asistenciasPartido" prefWidth="190.0" text="Asistencias / partido" />
+            <TableColumn fx:id="taponesPartido" prefWidth="190.0" text="Tapones / partido" />
+            <TableColumn fx:id="rebotesPartido" prefWidth="190.0" text="Rebotes / partido" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>
