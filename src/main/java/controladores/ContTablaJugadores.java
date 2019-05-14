@@ -2,8 +2,11 @@ package controladores;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import com.sun.javafx.image.impl.ByteIndexed.Getter;
@@ -61,7 +64,9 @@ public class ContTablaJugadores implements Initializable {
     public ContTablaJugadores() {
     	
     	try {
+    		
 			this.nodeNuevoJugador = FXMLLoader.load(getClass().getResource("/FXML/ventanaAñadirJugador.fxml"));
+			
 		} catch (IOException e) {
 			
 			e.printStackTrace();
@@ -73,8 +78,6 @@ public class ContTablaJugadores implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		
-		
 		aplicarEstilos();
 		
 		pintarTablaConConsulta();
@@ -94,14 +97,22 @@ public class ContTablaJugadores implements Initializable {
 			
 		});
 		
+		this.botonRealizarConsulta.setOnAction(evento -> {
+			
+			realizarConsulta();
+			
+		});
+		
 	}
 	
 	public void pintarTablaConConsulta() {
 		
 		try {
 			
-			ResultSet consulta = FuncionesBDD.conectarConsulta("select * from jugadores;");
-			
+			Connection con = FuncionesBDD.conectar();
+			PreparedStatement pst = con.prepareStatement("Select * from jugadores;");
+			ResultSet consulta = FuncionesBDD.consultar(pst);
+					
 			while (consulta.next()) {
 				
 				String codigo = consulta.getString("codigo");
@@ -122,6 +133,78 @@ public class ContTablaJugadores implements Initializable {
 			e.printStackTrace();
 			
 		}
+		
+	}
+	
+	public void realizarConsulta() {
+		
+		Connection con = FuncionesBDD.conectar();
+		
+		int codigo = 0;
+		String nombre = null;
+		String procedencia = null;
+		String altura = null;
+		int peso = 0;
+		String posicion = null;
+		String equipo = null;
+		
+		if (!consCodigo.getText().isEmpty()) {
+			codigo = Integer.parseInt(consCodigo.getText());
+		}
+		if (!consNombre.getText().isEmpty()) {
+			nombre = consNombre.getText().toString();
+		}
+		if (!consProcedencia.getText().isEmpty()) {
+			procedencia = consProcedencia.getText().toString();
+		}
+		if (!consAltura.getText().isEmpty()) {
+			altura = consAltura.getText().toString();
+		}
+		if (!consPeso.getText().isEmpty()) {
+			peso = Integer.parseInt(consPeso.getText().toString());
+		}
+		if (!consPosicion.getText().isEmpty()) {
+			posicion = consPosicion.getText().toString();
+		}
+		if (!consEquipo.getText().isEmpty()) {
+			equipo = consEquipo.getText().toString();
+		}
+		
+		String query = "select * from jugadores (codigo, Nombre, Procedencia, Altura, Peso, Posicion, Nombre_equipo)" + " values (?, ?, ?, ?, ?, ?, ?);";
+		PreparedStatement pst;
+		
+		try {
+			pst = con.prepareStatement(query);
+			if (codigo != 0) {
+				pst.setInt(1, codigo);
+			}
+			if (nombre != null) {
+				pst.setString(2, nombre);
+			}
+			if (procedencia != null) {
+				pst.setString(3, procedencia);
+			}
+			if (altura != null) {
+				pst.setString(4, altura);
+			}
+			if (peso != 0) {
+				pst.setInt(5, peso);
+			}
+			if (posicion != null) {
+				pst.setString(6, posicion);
+			}
+			if (equipo != null) {
+				pst.setString(7, equipo);
+			}
+			
+			FuncionesBDD.consultar(pst);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		
 	}
 	
@@ -147,6 +230,7 @@ public class ContTablaJugadores implements Initializable {
 		st.show();
 		
 	}
+	
 	
 	public void aplicarEstilos() {
 		

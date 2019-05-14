@@ -1,6 +1,8 @@
 package controladores;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -54,7 +56,9 @@ public class ContTablaEquipos implements Initializable {
 		
 		try {
 			
-			ResultSet consulta = FuncionesBDD.conectarConsulta("select * from equipos;");
+			Connection con = FuncionesBDD.conectar();
+			PreparedStatement pst = con.prepareStatement("select * from equipos;");
+			ResultSet consulta = FuncionesBDD.consultar(pst);
 			
 			while (consulta.next()) {
 				

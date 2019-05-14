@@ -11,26 +11,47 @@ import java.sql.Statement;
 
 public class FuncionesBDD {
 	
-	// aaaaa
+	
 	// TODO Para modificar un jugador probablemente tengamos que eliminar el seleccionado usando sus datos para eliminarlo y añadir uno nuevo con los datos modificados
-	public static ResultSet conectarConsulta(String consulta1) {
+	public static Connection conectar() {
+		
+		try {
+			
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nba", "daw", "daw");
+			
+			return con;
+			
+		} catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		return null;
+		
+	}
+	
+	public static ResultSet consultar(PreparedStatement pst) {
 		
 		try {
 			
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nba", "daw", "daw");
 			Statement st = con.createStatement();
-			ResultSet consulta = st.executeQuery(consulta1);
+			ResultSet rs = pst.executeQuery();
 			
-			return consulta;
+			return rs;
 			
-		} catch(SQLException e) {
+		} catch (SQLException e) {
+			
 			e.printStackTrace();
+			
 		}
+		
 		return null;
 		
 	}
 	
-	public static PreparedStatement conectarInsertJugador(int codigo, String nombre, String procedencia, String altura, int peso, String posicion, String equipo) {
+	public static PreparedStatement insertJugador(int codigo, String nombre, String procedencia, String altura, int peso, String posicion, String equipo) {
 		
 		Connection con;
 		String querry = "insert into jugadores (codigo, Nombre, Procedencia, Altura, Peso, Posicion, Nombre_equipo)" + " values (?, ?, ?, ?, ?, ?, ?);";

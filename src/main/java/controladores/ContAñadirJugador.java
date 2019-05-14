@@ -61,7 +61,7 @@ public class ContAñadirJugador implements Initializable {
 			String posicion = this.posicion.getText();
 			String equipo = this.equipo.getText();
 			
-			FuncionesBDD.conectarInsertJugador(codigo, nombre, procedencia, altura, peso, posicion, equipo);
+			FuncionesBDD.insertJugador(codigo, nombre, procedencia, altura, peso, posicion, equipo);
 			
 		} catch (NumberFormatException e) {
 			
