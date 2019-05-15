@@ -1,3 +1,13 @@
 /media/carlos/3DB461135F7307F0/eclipse-workspace/nbaBDD/src/main/java/nbaBDD/Launcher.java
-/media/carlos/3DB461135F7307F0/eclipse-workspace/nbaBDD/src/main/java/controladores/ControladoresVentanaTotal.java
+/media/carlos/3DB461135F7307F0/eclipse-workspace/nbaBDD/src/main/java/controladores/ContTablaEstadisticas.java
+/media/carlos/3DB461135F7307F0/eclipse-workspace/nbaBDD/src/main/java/controladores/ContTablaPartidos.java
+/media/carlos/3DB461135F7307F0/eclipse-workspace/nbaBDD/src/main/java/controladores/ContTablaEquipos.java
+/media/carlos/3DB461135F7307F0/eclipse-workspace/nbaBDD/src/main/java/dominio/Jugador.java
+/media/carlos/3DB461135F7307F0/eclipse-workspace/nbaBDD/src/main/java/dominio/FuncionesBDD.java
+/media/carlos/3DB461135F7307F0/eclipse-workspace/nbaBDD/src/main/java/controladores/ContAñadirJugador.java
+/media/carlos/3DB461135F7307F0/eclipse-workspace/nbaBDD/src/main/java/dominio/Partido.java
+/media/carlos/3DB461135F7307F0/eclipse-workspace/nbaBDD/src/main/java/controladores/ContTablaJugadores.java
+/media/carlos/3DB461135F7307F0/eclipse-workspace/nbaBDD/src/main/java/dominio/Estadistica.java
+/media/carlos/3DB461135F7307F0/eclipse-workspace/nbaBDD/src/main/java/controladores/ContVentanaPrincipal.java
 /media/carlos/3DB461135F7307F0/eclipse-workspace/nbaBDD/src/main/java/nbaBDD/Main.java
+/media/carlos/3DB461135F7307F0/eclipse-workspace/nbaBDD/src/main/java/dominio/Equipo.java

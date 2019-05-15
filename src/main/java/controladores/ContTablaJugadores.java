@@ -33,55 +33,55 @@ import javafx.stage.Stage;
 public class ContTablaJugadores implements Initializable {
 
 
-    @FXML private Button botonNuevoJugador;
-	
+	@FXML private Button botonNuevoJugador;
+
 	// Consultas
 	@FXML private TextField consCodigo;
-    @FXML private TextField consNombre;
-    @FXML private TextField consProcedencia;
-    @FXML private TextField consAltura;
-    @FXML private TextField consPeso;
-    @FXML private TextField consPosicion;
-    @FXML private TextField consEquipo;
-    @FXML private Button botonRealizarConsulta;
-	
-    // TODO Cambiar codigo y peso por integer (no solo aqui....)
-    // Tabla
-    @FXML
-    private TableView<Jugador> tablaJugadores;
-    @FXML private TableColumn<Jugador, String> codigoJugador;
-    @FXML private TableColumn<Jugador, String> nombreJugador;
-    @FXML private TableColumn<Jugador, String> procedenciaJugador;
-    @FXML private TableColumn<Jugador, String> alturaJugador;
-    @FXML private TableColumn<Jugador, String> pesoJugador;
-    @FXML private TableColumn<Jugador, String> posicionJugador;
-    @FXML private TableColumn<Jugador, String> equipoJugador;
-    
-    ObservableList<Jugador> tabla = FXCollections.observableArrayList();
-    
-    Node nodeNuevoJugador;
-    
-    public ContTablaJugadores() {
-    	
-    	try {
-    		
+	@FXML private TextField consNombre;
+	@FXML private TextField consProcedencia;
+	@FXML private TextField consAltura;
+	@FXML private TextField consPeso;
+	@FXML private TextField consPosicion;
+	@FXML private TextField consEquipo;
+	@FXML private Button botonRealizarConsulta;
+
+	// TODO Cambiar codigo y peso por integer (no solo aqui....)
+	// Tabla
+	@FXML
+	private TableView<Jugador> tablaJugadores;
+	@FXML private TableColumn<Jugador, Integer> codigoJugador;
+	@FXML private TableColumn<Jugador, String> nombreJugador;
+	@FXML private TableColumn<Jugador, String> procedenciaJugador;
+	@FXML private TableColumn<Jugador, String> alturaJugador;
+	@FXML private TableColumn<Jugador, Integer> pesoJugador;
+	@FXML private TableColumn<Jugador, String> posicionJugador;
+	@FXML private TableColumn<Jugador, String> equipoJugador;
+
+	ObservableList<Jugador> tabla = FXCollections.observableArrayList();
+
+	Node nodeNuevoJugador;
+
+	public ContTablaJugadores() {
+
+		try {
+
 			this.nodeNuevoJugador = FXMLLoader.load(getClass().getResource("/FXML/ventanaAñadirJugador.fxml"));
-			
+
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
-			
+
 		}
-    	
+
 	}
-    
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
 		aplicarEstilos();
-		
+
 		pintarTablaConConsulta();
-		
+
 		codigoJugador.setCellValueFactory(new PropertyValueFactory<>("codigo"));
 		nombreJugador.setCellValueFactory(new PropertyValueFactory<>("nombre"));
 		procedenciaJugador.setCellValueFactory(new PropertyValueFactory<>("procedencia"));
@@ -90,66 +90,33 @@ public class ContTablaJugadores implements Initializable {
 		posicionJugador.setCellValueFactory(new PropertyValueFactory<>("posicion"));
 		equipoJugador.setCellValueFactory(new PropertyValueFactory<>("nombreEquipo"));
 		tablaJugadores.setItems(tabla);
-		
-		this.botonNuevoJugador.setOnAction(evento -> {
-			
-			abrirFormularioNuevoJugador();
-			
-		});
-		
-		this.botonRealizarConsulta.setOnAction(evento -> {
-			
-			realizarConsulta();
-			
-		});
-		
-	}
-	
-	public void pintarTablaConConsulta() {
-		
-		try {
-			
-			Connection con = FuncionesBDD.conectar();
-			PreparedStatement pst = con.prepareStatement("Select * from jugadores;");
-			ResultSet consulta = FuncionesBDD.consultar(pst);
-					
-			while (consulta.next()) {
-				
-				String codigo = consulta.getString("codigo");
-				String nombre = consulta.getString("Nombre");
-				String procedencia = consulta.getString("Procedencia");
-				String altura = consulta.getString("Altura");
-				String peso = consulta.getString("Peso");
-				String posicion = consulta.getString("Posicion");
-				String nombreEquipo = consulta.getString("Nombre_equipo");
-				
-				Jugador jugador = new Jugador(codigo, nombre, procedencia, altura, peso, posicion, nombreEquipo);
-				tabla.add(jugador);
-				
-			}
-			
-		} catch (SQLException e) {
 
-			e.printStackTrace();
-			
-		}
-		
+		this.botonNuevoJugador.setOnAction(evento -> {
+
+			abrirFormularioNuevoJugador();
+
+		});
+
+		this.botonRealizarConsulta.setOnAction(evento -> {
+
+			realizarConsulta();
+
+		});
+
 	}
-	
+
 	public void realizarConsulta() {
-		
-		Connection con = FuncionesBDD.conectar();
-		
+
 		int codigo = 0;
-		String nombre = null;
-		String procedencia = null;
-		String altura = null;
+		String nombre = "";
+		String procedencia = "";
+		String altura = "";
 		int peso = 0;
-		String posicion = null;
-		String equipo = null;
-		
+		String posicion = "";
+		String equipo = "";
+
 		if (!consCodigo.getText().isEmpty()) {
-			codigo = Integer.parseInt(consCodigo.getText());
+			codigo = Integer.parseInt(consCodigo.getText().toString());
 		}
 		if (!consNombre.getText().isEmpty()) {
 			nombre = consNombre.getText().toString();
@@ -169,82 +136,103 @@ public class ContTablaJugadores implements Initializable {
 		if (!consEquipo.getText().isEmpty()) {
 			equipo = consEquipo.getText().toString();
 		}
-		
-		String query = "select * from jugadores (codigo, Nombre, Procedencia, Altura, Peso, Posicion, Nombre_equipo)" + " values (?, ?, ?, ?, ?, ?, ?);";
-		PreparedStatement pst;
-		
+
 		try {
-			pst = con.prepareStatement(query);
-			if (codigo != 0) {
-				pst.setInt(1, codigo);
+
+			ResultSet consulta = FuncionesBDD.consultaJugadores(codigo, nombre, procedencia, altura, peso, posicion, equipo);
+
+			while (consulta.next()) {
+
+				codigo = consulta.getInt("codigo");
+				nombre = consulta.getString("Nombre");
+				procedencia = consulta.getString("Procedencia");
+				altura = consulta.getString("Altura");
+				peso = consulta.getInt("Peso");
+				posicion = consulta.getString("Posicion");
+				equipo = consulta.getString("Nombre_equipo");
+
+				Jugador jugador = new Jugador(codigo, nombre, procedencia, altura, peso, posicion, equipo);
+				tabla.clear();
+				tabla.add(jugador);
+
 			}
-			if (nombre != null) {
-				pst.setString(2, nombre);
-			}
-			if (procedencia != null) {
-				pst.setString(3, procedencia);
-			}
-			if (altura != null) {
-				pst.setString(4, altura);
-			}
-			if (peso != 0) {
-				pst.setInt(5, peso);
-			}
-			if (posicion != null) {
-				pst.setString(6, posicion);
-			}
-			if (equipo != null) {
-				pst.setString(7, equipo);
-			}
-			
-			FuncionesBDD.consultar(pst);
-			
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
+
 		}
-		
-		
-		
+
 	}
-	
+
+	public void pintarTablaConConsulta() {
+
+		try {
+
+			Connection con = FuncionesBDD.conectar();
+			PreparedStatement pst = con.prepareStatement("Select * from jugadores;");
+			ResultSet consulta = FuncionesBDD.consultar(pst);
+
+			while (consulta.next()) {
+
+				int codigo = consulta.getInt("codigo");
+				String nombre = consulta.getString("Nombre");
+				String procedencia = consulta.getString("Procedencia");
+				String altura = consulta.getString("Altura");
+				int peso = consulta.getInt("Peso");
+				String posicion = consulta.getString("Posicion");
+				String nombreEquipo = consulta.getString("Nombre_equipo");
+
+				Jugador jugador = new Jugador(codigo, nombre, procedencia, altura, peso, posicion, nombreEquipo);
+				tabla.add(jugador);
+
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+
+		}
+
+	}
+
 	public void abrirFormularioNuevoJugador() {
-		
+
 		Parent root = null;
 
 		try {
-			
+
 			root = FXMLLoader.load(getClass().getResource("/FXML/ventanaAñadirJugador.fxml"));
-			
+
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
-			
+
 		}
-		
+
 		Scene sc = new Scene(root);
 		Stage st = new Stage();
 		st.setTitle("Nuevo jugador");
 		st.setScene(sc);
 		st.setResizable(false);
 		st.show();
-		
+
 	}
-	
-	
+
+
 	public void aplicarEstilos() {
-		
+
 		URL rutaImg;
 		Image imagenRecogida;
 		ImageView imagen;
-		
+
 		rutaImg = getClass().getResource("/logosNba/logoAñadir.png");
 		imagenRecogida = new Image(rutaImg.toString());
 		imagen = new ImageView(imagenRecogida);
 		imagen.setFitHeight(22);
 		imagen.setFitWidth(22);
 		this.botonNuevoJugador.setGraphic(imagen);
-		
+
 	}
 
 }

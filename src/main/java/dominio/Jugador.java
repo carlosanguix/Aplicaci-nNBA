@@ -2,17 +2,17 @@ package dominio;
 
 public class Jugador {
 
-	String codigo;
+	int codigo;
 	String nombre;
 	String procedencia;
 	String altura;
-	String peso;
+	int peso;
 	String posicion;
 	String nombreEquipo;
 	
 	
 	
-	public Jugador(String codigo, String nombre, String procedencia, String altura, String peso, String posicion, String nombreEquipo) {
+	public Jugador(int codigo, String nombre, String procedencia, String altura, int peso, String posicion, String nombreEquipo) {
 		
 		this.codigo       = codigo;
 		this.nombre       = nombre;
@@ -28,11 +28,11 @@ public class Jugador {
 	
 	
 	
-	public String getCodigo() {
+	public int getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
 
@@ -60,11 +60,11 @@ public class Jugador {
 		this.altura = altura;
 	}
 
-	public String getPeso() {
+	public int getPeso() {
 		return peso;
 	}
 
-	public void setPeso(String peso) {
+	public void setPeso(int peso) {
 		this.peso = peso;
 	}
 

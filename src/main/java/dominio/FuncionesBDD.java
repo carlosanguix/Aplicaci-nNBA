@@ -7,6 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+
 
 
 public class FuncionesBDD {
@@ -17,7 +21,7 @@ public class FuncionesBDD {
 		
 		try {
 			
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nba", "daw", "daw");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nba?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "daw", "daw");
 			
 			return con;
 			
@@ -29,6 +33,38 @@ public class FuncionesBDD {
 		
 		return null;
 		
+	}
+	
+	public static ResultSet consultaJugadores(int codigo, String nombre, String procedencia, String altura, int peso, String posicion, String equipo) throws SQLException {
+
+		Connection dbConnection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String selectSQL = "SELECT * FROM jugadores WHERE codigo = ? and Nombre like ? and Procedencia like ? and Altura like ? and Peso = ? and Posicion like ? and Nombre_equipo like ?";
+
+		try {
+			dbConnection = conectar();
+			preparedStatement = dbConnection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, codigo);
+			preparedStatement.setString(2, nombre);
+			preparedStatement.setString(3, procedencia);
+			preparedStatement.setString(4, altura);
+			preparedStatement.setInt(5, peso);
+			preparedStatement.setString(6, posicion);
+			preparedStatement.setString(7, equipo);
+
+			// execute select SQL stetement
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			return rs;
+			
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+			
+		}
+		return null;
+
 	}
 	
 	public static ResultSet consultar(PreparedStatement pst) {

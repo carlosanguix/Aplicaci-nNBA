@@ -67,12 +67,6 @@ public class ContVentanaPrincipal implements Initializable{
 	public void mostrarTablaJugadores() {
 
 		// TODO cuando añadimos un jugador se ven las dos tablas a la vez
-		if (this.nodeEquipos.isVisible()) {
-			
-			this.nodeEquipos.setVisible(false);
-//			this.nodeEquipos.setDisable(true);
-		}
-		
 		try {
 
 			this.nodeJugadores = FXMLLoader.load(getClass().getResource("/FXML/tablaJugadores.fxml"));
@@ -84,17 +78,12 @@ public class ContVentanaPrincipal implements Initializable{
 
 		}
 
+		contenedorTablas.getChildren().clear();
 		contenedorTablas.getChildren().add(this.nodeJugadores);
 
 	}
 
 	public void mostrarTablaEquipos() {
-
-		if (this.nodeJugadores.isVisible()) {
-
-			this.nodeJugadores.setVisible(false);
-//			this.nodeJugadores.setDisable(true);
-		}
 		
 		try {
 			
@@ -107,6 +96,7 @@ public class ContVentanaPrincipal implements Initializable{
 
 		}
 
+		contenedorTablas.getChildren().clear();
 		contenedorTablas.getChildren().add(this.nodeEquipos);
 
 	}

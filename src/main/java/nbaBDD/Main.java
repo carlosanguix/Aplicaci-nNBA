@@ -36,7 +36,8 @@ public class Main extends Application {
 		
 		Scene sc = new Scene(root);
 		// TODO Añadir icono a la escena, junto al nombre del programa
-		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/logosNba/AAnbaLogo.png")));
+		Image a = new Image("file:AAnbaLogo.png");
+		primaryStage.getIcons().add(a);
 		primaryStage.setTitle("Aplicacion NBA (v0.93.1)");
 		primaryStage.setScene(sc);
 		primaryStage.setResizable(false);
